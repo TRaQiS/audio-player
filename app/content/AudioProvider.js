@@ -40,7 +40,7 @@ export class AudioProvider extends Component {
 
         this.setState({...this.state, dataProvider: dataProvider.cloneWithRows([...audioFiles, ...media.assets]), audioFiles: [...audioFiles, ...media.assets]})
 
-        console.log(media.assets.length)
+        // console.log(media.assets.length)
     }
 
     getPermission = async () => {
