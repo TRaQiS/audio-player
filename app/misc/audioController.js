@@ -26,7 +26,15 @@ export const resume = async (playbackobj) => {
 }
 
 // select another
-
+export const playNext = async ( playbackobj, uri ) => {
+    try {
+        await playbackobj.stopAsync()
+        await playbackobj.unloadAsync()
+        return await play(playbackobj, uri)
+    } catch (err) {
+        console.log(err)
+    }
+}
 
 // import React from "react";
 

@@ -5,7 +5,7 @@ import { RecyclerListView, LayoutProvider } from "recyclerlistview";
 import AudioListItem from "../components/AudioListItem";
 import OptionModal from "../components/OptionModal";
 import { Audio } from 'expo-av'
-import { pause, play, resume } from "../misc/audioController";
+import { pause, play, playNext, resume } from "../misc/audioController";
 
 export class AudioList extends Component {
     static contextType = AudioContext
@@ -43,17 +43,22 @@ export class AudioList extends Component {
         }
 
         // pause
-        if (soundObj.isLoaded && soundObj.isPlaying) {
+        if (soundObj.isLoaded && soundObj.isPlaying && currentAudio.id === audio.id) {
             // audioController.pause()
             const status = await pause(playbackobj)
             return updateState(this.context, { soundObj: status } )
         }
 
         //resume
-
         if (soundObj.isLoaded && !soundObj.isPlaying && currentAudio.id === audio.id) {
             const status = await resume(playbackobj)
             return updateState(this.context, { soundObj: status })
+        }
+
+        // select other
+        if (soundObj.isLoaded && currentAudio.id !== audio.id) {
+            const status = await playNext(playbackobj, audio.uri)
+            return updateState(this.context, {currentAudio: audio, soundObj: status })
         }
     }
 
