@@ -13,9 +13,9 @@ export class AudioProvider extends Component {
             dataProvider: new DataProvider((r1, r2) => r1 !== r2),
             playbackobj: null,
             soundObj: null,
-            currentAudio: {
-
-            }
+            currentAudio: {},
+            isPlaying: false,
+            currentAudioIndex: null
         }
     }
 
@@ -85,11 +85,11 @@ export class AudioProvider extends Component {
     
 
     render() {
-        const {audioFiles, dataProvider, permissionError, playbackobj, soundObj, currentAudio } = this.state
+        const {audioFiles, dataProvider, permissionError, playbackobj, soundObj, currentAudio, isPlaying, currentAudioIndex } = this.state
         if (permissionError) return <View>
             <Text>ERROR</Text>
         </View>
-        return <AudioContext.Provider value={{audioFiles, dataProvider, playbackobj, soundObj, currentAudio, updateState: this.updateState }}>
+        return <AudioContext.Provider value={{audioFiles, dataProvider, playbackobj, soundObj, currentAudio, isPlaying, currentAudioIndex, updateState: this.updateState }}>
                     {this.props.children}
                 </AudioContext.Provider>
     }
